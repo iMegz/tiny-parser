@@ -1,0 +1,352 @@
+@font-face {
+    font-family: "Data Control";
+    src: url("../fonts/dataControl/data-latin.ttf");
+}
+
+@font-face {
+    font-family: "Consolas";
+    src: url("../fonts/consolas/Consolas.ttf");
+}
+
+/* Variables */
+:root {
+    --grey: #e5e5cb;
+    --secondary: #d5cea3;
+    --base-light: #3c2a21;
+    --base: #1a120b;
+    --code-editorFont: 16px;
+}
+
+/* General rules */
+* {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--grey);
+}
+
+/*
+    Container
+*/
+.container {
+    width: 95%;
+    margin: auto;
+}
+
+/*
+    Main
+*/
+main {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*
+    Headers
+*/
+h1 {
+    font-family: "Data Control", "Courier New", Courier, monospace;
+    font-size: 4rem;
+    text-align: center;
+    color: var(--base);
+    user-select: none;
+}
+
+/*
+    Table
+*/
+table {
+    width: 100%;
+    border: 2px solid var(--base);
+    text-align: center;
+}
+table tr td {
+    border: none;
+}
+table tr:nth-of-type(even) {
+    background-color: var(--secondary);
+}
+table tr:nth-of-type(odd) {
+    background-color: var(--grey);
+}
+table tr:nth-of-type(1) {
+    background-color: var(--base);
+    color: white;
+}
+
+table tr td:hover {
+    background-color: var(--base-light);
+    color: white;
+}
+
+/*
+    Window
+*/
+
+/*Window navtabs*/
+nav ul {
+    display: flex;
+    gap: 3px;
+    margin: 0;
+    padding-left: 10px;
+    list-style: none;
+}
+
+nav ul li {
+    padding: 1rem;
+    border: 2px solid var(--base);
+    border-bottom-color: transparent;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    font-weight: 600;
+    z-index: 10;
+    min-height: 62px;
+    user-select: none;
+}
+
+nav ul li.active,
+nav ul li:hover {
+    background-color: white;
+    transition: all 0.1s;
+    cursor: pointer;
+    color: #000;
+    border-bottom: 2px solid white;
+}
+
+.badge {
+    border-radius: 50%;
+    display: inline-table;
+    width: 1.6rem;
+    height: 1.6rem;
+    color: white;
+    text-align: center;
+    line-height: 1.6rem;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    font-weight: 100;
+    background-color: var(--base);
+    pointer-events: none;
+}
+
+/* Window data fields */
+section {
+    width: 48%;
+    padding: 1rem;
+}
+
+.window {
+    border-radius: 10px;
+    background-color: white;
+}
+.window:has(#code-editor) {
+    background-color: transparent;
+}
+
+#code-editor,
+#result-window {
+    border-radius: 3px;
+    resize: none;
+    width: 100%;
+    height: 50vh;
+    outline: none;
+    color: var(--black);
+    border: 2px solid var(--base);
+    margin-top: -1.5px;
+    font-size: 1rem;
+    padding: 5px;
+    overflow: auto;
+}
+
+#result-window:has(#pst-svg) {
+    overflow: hidden;
+    user-select: none;
+}
+
+/* Scanner coloring */
+#scaned {
+    display: flex;
+    gap: 3px;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: #1e1e1e;
+    padding: 5px;
+    font-size: var(--code-editorFont);
+    font-family: "Consolas", "Courier New", monospace !important;
+}
+#lines {
+    color: white;
+    text-align: center;
+    min-height: 100%;
+    width: calc(var(--code-editorFont) * 1.5);
+    background-color: #171717;
+    z-index: 10;
+    top: 0;
+    left: calc(-1 * calc(var(--code-editorFont) * 1.5));
+}
+.scan-color {
+    color: #ffd700;
+}
+.scan-id {
+    color: #4fc1ff;
+}
+.scan-keyword {
+    color: #da70d6;
+}
+.scan-comment {
+    color: #6a9955;
+}
+.scan-function {
+    color: #dcdcaa;
+}
+.scan-operator {
+    color: #d4d4d4;
+}
+.scan-invalid {
+    position: relative;
+    color: #d4d4d4;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+.parser-invalid {
+    position: relative;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+.parser-invalid:hover:after,
+.scan-invalid:hover:after {
+    content: attr(error);
+    color: #d4d4d4;
+    display: block;
+    width: max-content;
+    position: absolute;
+    background-color: #171717;
+    border: 2px solid #131313;
+    padding: 5px;
+    top: 100%;
+    left: 0;
+    animation: showErrorTooltib 0.3s forwards;
+}
+@keyframes showErrorTooltib {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* Parser */
+#PST {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#PST::after {
+    content: attr(view);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 4rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #b6b6b633;
+}
+
+#PST svg {
+    width: 100%;
+    height: 100%;
+}
+
+#full-pst-holder {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #00000080;
+    z-index: 50;
+    display: none;
+}
+
+#closeBtn {
+    background-color: red;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    color: white;
+    border: 3px solid black;
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    transition: all 0.3s;
+    z-index: 100;
+}
+
+#closeBtn:hover {
+    background-color: #c00000;
+    box-shadow: 0 0 7px var(--base);
+}
+
+#full-pst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 8px;
+    width: calc(100vw - 20px);
+    height: calc(100vh - 20px);
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    background-color: white;
+}
+
+#full-pst-content {
+    width: auto;
+    height: auto;
+}
+
+#PST-hidden {
+    display: none;
+}
+
+#saved {
+    display: none;
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    place-items: center;
+    background-color: var(--secondary);
+    color: black;
+    border-radius: 15px;
+    border: 4px solid #000000;
+    text-transform: uppercase;
+    user-select: none;
+    z-index: 100;
+}
+
+#ok-save {
+    background-color: green;
+    padding: 0.5rem 2rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#ok-save:hover {
+    background-color: #006d00;
+    box-shadow: 0 0 8px #000;
+}

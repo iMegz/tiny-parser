@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/main.css" />
+        <title>Tiny Compiler</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Tiny compiler</h1>
+            <main>
+                <!-- Code section -->
+                <section>
+                    <nav>
+                        <ul>
+                            <li class="active">Code</li>
+                        </ul>
+                    </nav>
+                    <div class="window">
+                        <textarea
+                            id="code-editor"
+                            spellcheck="false"
+                        ></textarea>
+                    </div>
+                </section>
+
+                <!-- Result section -->
+                <section>
+                    <nav>
+                        <ul>
+                            <li class="active" id="scanner">Beautify</li>
+                            <li id="tokens">
+                                Tokens
+                                <span id="tokensBadge" class="badge">0</span>
+                            </li>
+                            <li id="errors">
+                                Errors
+                                <span id="errorsBadge" class="badge">0</span>
+                            </li>
+                            <li id="parser">Parser</li>
+                        </ul>
+                    </nav>
+                    <div class="window">
+                        <div id="result-window"></div>
+                    </div>
+                </section>
+            </main>
+            <div id="PST-hidden"></div>
+            <div id="full-pst-holder">
+                <button id="closeBtn">X</button>
+                <div id="full-pst">
+                    <div id="full-pst-content"></div>
+                </div>
+            </div>
+            <div id="saved">
+                <h2>Saved!</h2>
+                <button id="ok-save">Ok</button>
+            </div>
+        </div>
+
+        <!-- Graph library -->
+        <script src="js/d3/dist/d3.min.js"></script>
+
+        <!-- Scanner code -->
+        <script src="js/compiler/Scanner.js"></script>
+
+        <!-- Tree creator and tree visualizer -->
+        <script src="js/compiler/tree.js"></script>
+
+        <!-- Parser code -->
+        <script src="js/compiler/Parser.js"></script>
+
+        <!-- Renderer -->
+        <script src="js/renderer.js"></script>
+    </body>
+</html>

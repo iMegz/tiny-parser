@@ -1,0 +1,17 @@
+{
+  "name": "Tiny Compiler",
+  "version": "1.0.0",
+  "description": "This is a tiny language scanner and parser ",
+  "main": "index.js",
+  "author": "",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . --overwrite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^22.0.0"
+  }
+}
